@@ -1,5 +1,3 @@
-"""Convolutional models for MNIST-to-FashionMNIST transfer experiments."""
-
 from __future__ import annotations
 
 import torch
@@ -31,7 +29,6 @@ class CNNBackbone(nn.Module):
 
 
 class CNNClassifier(nn.Module):
-    """CNN with a replaceable classification head."""
 
     def __init__(self, num_classes: int = 10) -> None:
         super().__init__()
@@ -42,7 +39,6 @@ class CNNClassifier(nn.Module):
         return self.head(self.backbone(images))
 
     def freeze_backbone(self, frozen: bool = True) -> None:
-        """Freeze or unfreeze feature-extractor parameters and BN statistics."""
         for parameter in self.backbone.parameters():
             parameter.requires_grad = not frozen
         for module in self.backbone.modules():
